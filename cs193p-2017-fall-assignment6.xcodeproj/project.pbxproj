@@ -13,6 +13,13 @@
 		EF484175283F9CBD004917B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF484173283F9CBD004917B0 /* Main.storyboard */; };
 		EF484177283F9CBD004917B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF484176283F9CBD004917B0 /* Assets.xcassets */; };
 		EF48417A283F9CBD004917B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF484178283F9CBD004917B0 /* LaunchScreen.storyboard */; };
+		EF484187283F9D34004917B0 /* GalleryDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF484185283F9D34004917B0 /* GalleryDocument.swift */; };
+		EF484188283F9D34004917B0 /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF484186283F9D34004917B0 /* GalleryModel.swift */; };
+		EF48418C283F9D4A004917B0 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF484189283F9D4A004917B0 /* DocumentBrowserViewController.swift */; };
+		EF48418D283F9D4A004917B0 /* GalleryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48418A283F9D4A004917B0 /* GalleryCollectionViewController.swift */; };
+		EF48418E283F9D4A004917B0 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48418B283F9D4A004917B0 /* ImageViewController.swift */; };
+		EF484190283F9D62004917B0 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48418F283F9D62004917B0 /* ImageCollectionViewCell.swift */; };
+		EF484192283F9D71004917B0 /* StaticsAndExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF484191283F9D71004917B0 /* StaticsAndExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		EF484176283F9CBD004917B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF484179283F9CBD004917B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF48417B283F9CBD004917B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF484185283F9D34004917B0 /* GalleryDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryDocument.swift; sourceTree = "<group>"; };
+		EF484186283F9D34004917B0 /* GalleryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
+		EF484189283F9D4A004917B0 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
+		EF48418A283F9D4A004917B0 /* GalleryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewController.swift; sourceTree = "<group>"; };
+		EF48418B283F9D4A004917B0 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		EF48418F283F9D62004917B0 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		EF484191283F9D71004917B0 /* StaticsAndExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticsAndExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +70,54 @@
 		EF48416C283F9CBD004917B0 /* cs193p-2017-fall-assignment6 */ = {
 			isa = PBXGroup;
 			children = (
-				EF48416D283F9CBD004917B0 /* AppDelegate.swift */,
-				EF48416F283F9CBD004917B0 /* SceneDelegate.swift */,
+				EF484184283F9D1E004917B0 /* View */,
+				EF484183283F9D12004917B0 /* ViewController */,
+				EF484182283F9D0D004917B0 /* Model */,
+				EF484181283F9CE3004917B0 /* Supporting Files */,
 				EF484171283F9CBD004917B0 /* ViewController.swift */,
 				EF484173283F9CBD004917B0 /* Main.storyboard */,
-				EF484176283F9CBD004917B0 /* Assets.xcassets */,
-				EF484178283F9CBD004917B0 /* LaunchScreen.storyboard */,
 				EF48417B283F9CBD004917B0 /* Info.plist */,
 			);
 			path = "cs193p-2017-fall-assignment6";
+			sourceTree = "<group>";
+		};
+		EF484181283F9CE3004917B0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EF484191283F9D71004917B0 /* StaticsAndExtensions.swift */,
+				EF484178283F9CBD004917B0 /* LaunchScreen.storyboard */,
+				EF484176283F9CBD004917B0 /* Assets.xcassets */,
+				EF48416F283F9CBD004917B0 /* SceneDelegate.swift */,
+				EF48416D283F9CBD004917B0 /* AppDelegate.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF484182283F9D0D004917B0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EF484185283F9D34004917B0 /* GalleryDocument.swift */,
+				EF484186283F9D34004917B0 /* GalleryModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EF484183283F9D12004917B0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EF484189283F9D4A004917B0 /* DocumentBrowserViewController.swift */,
+				EF48418A283F9D4A004917B0 /* GalleryCollectionViewController.swift */,
+				EF48418B283F9D4A004917B0 /* ImageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		EF484184283F9D1E004917B0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EF48418F283F9D62004917B0 /* ImageCollectionViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +194,13 @@
 				EF484172283F9CBD004917B0 /* ViewController.swift in Sources */,
 				EF48416E283F9CBD004917B0 /* AppDelegate.swift in Sources */,
 				EF484170283F9CBD004917B0 /* SceneDelegate.swift in Sources */,
+				EF484187283F9D34004917B0 /* GalleryDocument.swift in Sources */,
+				EF48418C283F9D4A004917B0 /* DocumentBrowserViewController.swift in Sources */,
+				EF484192283F9D71004917B0 /* StaticsAndExtensions.swift in Sources */,
+				EF48418D283F9D4A004917B0 /* GalleryCollectionViewController.swift in Sources */,
+				EF484190283F9D62004917B0 /* ImageCollectionViewCell.swift in Sources */,
+				EF48418E283F9D4A004917B0 /* ImageViewController.swift in Sources */,
+				EF484188283F9D34004917B0 /* GalleryModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +355,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,6 +384,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
