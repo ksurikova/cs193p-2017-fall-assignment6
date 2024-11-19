@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EF48416E283F9CBD004917B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48416D283F9CBD004917B0 /* AppDelegate.swift */; };
 		EF484170283F9CBD004917B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48416F283F9CBD004917B0 /* SceneDelegate.swift */; };
-		EF484172283F9CBD004917B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF484171283F9CBD004917B0 /* ViewController.swift */; };
 		EF484175283F9CBD004917B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF484173283F9CBD004917B0 /* Main.storyboard */; };
 		EF484177283F9CBD004917B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF484176283F9CBD004917B0 /* Assets.xcassets */; };
 		EF48417A283F9CBD004917B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF484178283F9CBD004917B0 /* LaunchScreen.storyboard */; };
@@ -23,10 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E646E792CEB5A4200088BB7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		EF48416A283F9CBD004917B0 /* cs193p-2017-fall-assignment6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cs193p-2017-fall-assignment6.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF48416D283F9CBD004917B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF48416F283F9CBD004917B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EF484171283F9CBD004917B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EF484174283F9CBD004917B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF484176283F9CBD004917B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF484179283F9CBD004917B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		EF484161283F9CBD004917B0 = {
 			isa = PBXGroup;
 			children = (
+				4E646E792CEB5A4200088BB7 /* .swiftlint.yml */,
 				EF48416C283F9CBD004917B0 /* cs193p-2017-fall-assignment6 */,
 				EF48416B283F9CBD004917B0 /* Products */,
 			);
@@ -74,7 +74,6 @@
 				EF484183283F9D12004917B0 /* ViewController */,
 				EF484182283F9D0D004917B0 /* Model */,
 				EF484181283F9CE3004917B0 /* Supporting Files */,
-				EF484171283F9CBD004917B0 /* ViewController.swift */,
 				EF484173283F9CBD004917B0 /* Main.storyboard */,
 				EF48417B283F9CBD004917B0 /* Info.plist */,
 			);
@@ -130,6 +129,7 @@
 				EF484166283F9CBD004917B0 /* Sources */,
 				EF484167283F9CBD004917B0 /* Frameworks */,
 				EF484168283F9CBD004917B0 /* Resources */,
+				4E646E7A2CEB5A5C00088BB7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -186,12 +186,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4E646E7A2CEB5A5C00088BB7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EF484166283F9CBD004917B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF484172283F9CBD004917B0 /* ViewController.swift in Sources */,
 				EF48416E283F9CBD004917B0 /* AppDelegate.swift in Sources */,
 				EF484170283F9CBD004917B0 /* SceneDelegate.swift in Sources */,
 				EF484187283F9D34004917B0 /* GalleryDocument.swift in Sources */,
@@ -355,6 +375,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -384,6 +405,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

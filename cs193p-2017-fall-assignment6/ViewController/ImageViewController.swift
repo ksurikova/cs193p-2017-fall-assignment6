@@ -8,7 +8,7 @@
 import UIKit
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
-    
+
     // MARK: Override view cycle methods
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -16,16 +16,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             fetchImage()
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         zoomScaleToFit()
     }
-    
-    
+
     // MARK: Storyboard
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
+
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.minimumZoomScale = Utilities.minimumZoomScale
@@ -34,17 +33,16 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.addSubview(imageView)
         }
     }
-    
+
     // MARK: UIScrollViewDelegate
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+        imageView
     }
-    
+
     // clear autozoom after user does his own zoom with pinch
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         autoZoomed = false
     }
-
 
     // MARK: Model
     var imageURL: URL? {
@@ -55,10 +53,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
+
     private var image: UIImage? {
         get {
-            return imageView.image
+            imageView.image
         }
         set {
             imageView.image = newValue
@@ -69,21 +67,19 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             zoomScaleToFit()
         }
     }
-    
+
     var imageView  = UIImageView()
-    
     var autoZoomed = false
-    
+
     // calculate zoom image for screen size
     // without empty gaps
-    private func zoomScaleToFit()
-    {
+    private func zoomScaleToFit() {
         // if geometry is loaded, we wiil set zoomScale
         if !autoZoomed {
             return
         }
-        if let sv = scrollView , image != nil && (imageView.bounds.size.width > 0)
-            && (scrollView.bounds.size.width > 0){
+        if let sv = scrollView, image != nil && (imageView.bounds.size.width > 0)
+            && (scrollView.bounds.size.width > 0) {
 
             let widthRatio = scrollView.bounds.size.width  / imageView.bounds.size.width
             let heightRatio = scrollView.bounds.size.height / self.imageView.bounds.size.height
@@ -93,7 +89,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                                        y: (imageView.frame.size.height - sv.frame.size.height) / 2)
         }
     }
-    
+
     private func fetchImage() {
         if let url = imageURL {
             spinner.startAnimating()
@@ -107,6 +103,4 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
-  
 }

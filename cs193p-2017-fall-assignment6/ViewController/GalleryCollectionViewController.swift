@@ -7,17 +7,15 @@
 
 import UIKit
 
-
-
-
-class GalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate,
+class GalleryCollectionViewController: UICollectionViewController,
+                                       UICollectionViewDelegateFlowLayout,
+                                       UICollectionViewDragDelegate,
                                        UICollectionViewDropDelegate {
-    
-    
+
     // MARK: - Document Handling
 
     var document: GalleryDocument?
-    
+
     @IBAction func close(_ sender: UIBarButtonItem) {
         // dismiss ourselves from having been presented modally
         // and when we're done, close our document
@@ -29,7 +27,6 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
         }
     }
 
-    
     func documentChanged() {
         // update the document's Model to match ours
         document?.gallery = imageGallery
@@ -39,7 +36,7 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
             document?.updateChangeCount(.done)
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // whenever we appear, we'll open our document
@@ -53,19 +50,17 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
             }
         }
     }
-    
+
     func galleryViewDidChange(_ sender: GalleryCollectionViewController) {
         self.documentChanged()
     }
-    
-    
-    //MARK: Model
+
+    // MARK: Model
     var imageGallery: Gallery?
-    
+
     var firstImage: UIImageView? {
-        return (self.collectionView!.cellForItem(at:
-                                  IndexPath(item: 0, section: 0))
-                as? ImageCollectionViewCell)?.imageView
+        (self.collectionView!.cellForItem(at: IndexPath(item: 0, section: 0))
+        as? ImageCollectionViewCell)?.imageView
     }
 
     override func viewDidLoad() {
@@ -77,7 +72,7 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(zoom(by: )))
         collectionView!.addGestureRecognizer(pinchGestureRecognizer)
     }
-    
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         flowLayout?.invalidateLayout()
@@ -85,36 +80,36 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
 
     // MARK: - For counting image cell size
     var flowLayout: UICollectionViewFlowLayout? {
-        return collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
+        collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
     }
-    
+
     var scale: CGFloat = Utilities.defaultScale {
         didSet {
             flowLayout?.invalidateLayout()
         }
     }
-    
-    var boundsCollectionWidth : CGFloat {
-        return (collectionView?.bounds.width)!
+
+    var boundsCollectionWidth: CGFloat {
+        (collectionView?.bounds.width)!
     }
     var gapItems: CGFloat {
-        return   (flowLayout?.minimumInteritemSpacing)! * (Utilities.imageInLineCount - 1)
+        (flowLayout?.minimumInteritemSpacing)! * (Utilities.imageInLineCount - 1)
     }
-    
-    var insets : CGFloat {
-        return (flowLayout?.sectionInset.left)! + (flowLayout?.sectionInset.right)! + (collectionView?.contentInset.left)!  + (collectionView?.contentInset.right)!
+
+    var insets: CGFloat {
+        (flowLayout?.sectionInset.left)! + (flowLayout?.sectionInset.right)!
+        + (collectionView?.contentInset.left)!  + (collectionView?.contentInset.right)!
     }
-    
-    
-    var predefinedWidth:CGFloat {
+
+    var predefinedWidth: CGFloat {
         let width = floor(
             (boundsCollectionWidth - gapItems - insets)
             / Utilities.imageInLineCount) * scale
         return  min(width, boundsCollectionWidth)
     }
-    
-    //MARK: - Pinch gesture handling - zoom
-    @objc func zoom(by recognizer: UIPinchGestureRecognizer){
+
+    // MARK: - Pinch gesture handling - zoom
+    @objc func zoom(by recognizer: UIPinchGestureRecognizer) {
         switch recognizer.state {
         case .changed, .ended:
             scale = recognizer.scale
@@ -122,94 +117,88 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
             break
         }
     }
- 
-    
-    // MARK: - Navigation
 
+    // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if let identifier = segue.identifier {
             switch identifier {
-            case "show image" :
-                    if let imageCell = sender as? ImageCollectionViewCell,
-                        let indexPath = collectionView?.indexPath(for: imageCell),
-                        let vc = segue.destination as? ImageViewController {
-                        vc.imageURL = imageGallery?.images[indexPath.item].imageUrl
-                    }
+            case "show image":
+                if let imageCell = sender as? ImageCollectionViewCell,
+                   let indexPath = collectionView?.indexPath(for: imageCell),
+                   let vc = segue.destination as? ImageViewController {
+                    vc.imageURL = imageGallery?.images[indexPath.item].imageUrl
+                }
             default: break
             }
         }
     }
-    
+
     //
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        let cell = sender as! UICollectionViewCell
-        if let indexPath = collectionView?.indexPath(for: cell){
-            if let fetched = imageGallery?.images[indexPath.item].isImageFetched, fetched == false
-            {
-                return false
-            }
-            else {return true }
-        }
-        else {
+        if let cell = sender as? UICollectionViewCell {
+            if let indexPath = collectionView?.indexPath(for: cell) {
+                if let fetched = imageGallery?.images[indexPath.item].isImageFetched, fetched == false {
+                    return false
+                } else { return true }
+            } else { return false }
+        } else {
             return false
         }
     }
 
-
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return imageGallery?.images.count ?? 0
-            default: return 0
+        default: return 0
         }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell =
-                collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell",
-                                                                   for: indexPath)
-            if let imageCell = cell as? ImageCollectionViewCell {
-                imageCell.imageURL =
-                    imageGallery?.images[indexPath.item]
-                    .imageUrl
-                imageCell.indicateWhatImageIsWrong = {  [weak self] in
-                    self?.imageGallery?.images[indexPath.item].aspectRatio = 1.0
-                    self?.imageGallery?.images[indexPath.item].isImageFetched = false
-                    self?.flowLayout?.invalidateLayout()
-                }
+        let cell =
+        collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell",
+                                           for: indexPath)
+        if let imageCell = cell as? ImageCollectionViewCell {
+            imageCell.imageURL =
+            imageGallery?.images[indexPath.item]
+                .imageUrl
+            imageCell.indicateWhatImageIsWrong = {  [weak self] in
+                self?.imageGallery?.images[indexPath.item].aspectRatio = 1.0
+                self?.imageGallery?.images[indexPath.item].isImageFetched = false
+                self?.flowLayout?.invalidateLayout()
             }
-            return cell
+        }
+        return cell
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = predefinedWidth
-        
+
         if let aspectRatio = imageGallery?.images[indexPath.item].aspectRatio {
             let height = width / aspectRatio
             return CGSize(width: width, height: height)
-        }
-        else {
+        } else {
             return CGSize(width: 0, height: 0)
         }
     }
-    
-    //MARK: - UICollectionViewDragDelegate
-    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+
+    // MARK: - UICollectionViewDragDelegate
+    func collectionView(_ collectionView: UICollectionView,
+                        itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         session.localContext = collectionView
         return dragItems(at: indexPath)
     }
-  
+
     private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
         if let image = (collectionView?.cellForItem(at: indexPath) as? ImageCollectionViewCell)?.imageView.image {
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: image))
@@ -219,14 +208,12 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
             return []
         }
     }
-    
-    
+
     // MARK: - UICollectionViewDropDelegate
     func collectionView(
         _ collectionView: UICollectionView,
         performDropWith coordinator: UICollectionViewDropCoordinator
     ) {
-        
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
             // move locally
@@ -243,59 +230,50 @@ class GalleryCollectionViewController: UICollectionViewController, UICollectionV
                     })
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
-            }
-            // move from another application
-            else {
-                let placeholderContext = coordinator.drop(
-                    item.dragItem,
-                    to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "DropPlaceholderCell")
-                )
+            } else {
+                let placeholderContext = coordinator.drop(item.dragItem,
+                    to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath,
+                                                        reuseIdentifier: "DropPlaceholderCell"))
                 var imageURLLocal: URL?
                 var aspectRatioLocal: CGFloat?
                 // simultaneously download both image and url
-                item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { (provider, error) in
+                item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { (provider, _) in
                     DispatchQueue.main.async {
-                        if let image = provider as? UIImage {
-                            aspectRatioLocal = CGFloat(image.size.width / image.size.height)
-                        }
+                        if let image = provider as? UIImage { aspectRatioLocal = CGFloat(image.size.width / image.size.height) }
                     }
                 }
-                item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) { (provider, error) in
+                item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) { (provider, _) in
                     DispatchQueue.main.async {
-                        if let url = provider as? URL {
-                            imageURLLocal = url.imageURL
-                        }
+                        if let url = provider as? URL { imageURLLocal = url.imageURL }
                         if let imageURL = imageURLLocal, let aspectRatio = aspectRatioLocal {
                             placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
-                                self.imageGallery?.images.insert(ImageElement(aspectRatio: aspectRatio, imageUrl: imageURL), at: insertionIndexPath.item)
+                                self.imageGallery?.images.insert(ImageElement(aspectRatio: aspectRatio, imageUrl: imageURL),
+                                                                 at: insertionIndexPath.item)
                                 // notify that document changed
                                 self.documentChanged()
                             })
-                        } else {
-                            placeholderContext.deletePlaceholder()
-                        }
+                        } else { placeholderContext.deletePlaceholder() }
                     }
                 }
             }
         }
     }
-        
+
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         //  drap and drop locally - images
-        if  ((session.localDragSession?.localContext as? UICollectionView) == collectionView)
-        {
+        if  (session.localDragSession?.localContext as? UICollectionView) == collectionView {
             return session.canLoadObjects(ofClass: UIImage.self)
         }
         // drag and drop from other applications - object should be an image and url both
-         else {
+        else {
             return session.canLoadObjects(ofClass: UIImage.self) && session.canLoadObjects(ofClass: NSURL.self)
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        dropSessionDidUpdate session: UIDropSession,
+                        withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
         return UICollectionViewDropProposal(operation: isSelf ? .move : .copy, intent: .insertAtDestinationIndexPath)
     }
-    
-
 }
